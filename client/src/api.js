@@ -1,4 +1,4 @@
-// ✅ agrega /api al final
+// ✅ apuntar a la ruta real de tu backend (con /api)
 const API_BASE = import.meta.env.VITE_API_BASE || 'https://stitchwizard.onrender.com/api';
 const AUTH_HEADER = { Authorization: 'Bearer demo-token' };
 
