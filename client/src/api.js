@@ -1,4 +1,7 @@
-const API_BASE = import.meta?.env?.VITE_API_BASE || '/api';
+// api.js
+
+// ✅ usa la variable de entorno de Vite, con fallback local
+const API_BASE = import.meta.env.VITE_API_BASE || 'https://stitchwizard.onrender.com';
 const AUTH_HEADER = { Authorization: 'Bearer demo-token' };
 
 async function handleResponse(res) {
