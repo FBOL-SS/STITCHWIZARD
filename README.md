@@ -23,7 +23,6 @@ StitchWizard es una calculadora full-stack para costos de mano de obra en confec
 ```bash
 npm install
 npm run db:setup
-(cd stitchwizard-client && npm install)
 (cd client && npm install)
 ```
 
@@ -38,7 +37,6 @@ npm run dev
 En otra terminal levanta el frontend:
 
 ```bash
-cd stitchwizard-client
 cd client
 npm run dev
 ```
@@ -50,14 +48,12 @@ El frontend estará en `http://localhost:5173` y la API en `http://localhost:400
 ### Producción local (build)
 
 ```bash
-cd stitchwizard-client
 cd client
 npm run build
 cd ..
 npm start
 ```
 
-El servidor Express servirá los archivos construidos en `stitchwizard-client/dist`.
 El servidor Express servirá los archivos construidos en `client/dist`.
 
 ## Despliegue
@@ -65,7 +61,6 @@ El servidor Express servirá los archivos construidos en `client/dist`.
 ### Backend en Railway o Render
 
 1. Crea un nuevo servicio Node.js y sube este repositorio.
-2. Configura el comando de build `npm install && npm run db:setup && cd stitchwizard-client && npm install && npm run build`.
 2. Configura el comando de build `npm install && npm run db:setup && cd client && npm install && npm run build`.
 3. Configura el comando de start `npm start`.
 4. Asegura que el archivo `db/stitchwizard.sqlite` tenga persistencia (volumen o variable `DATABASE_URL` si migras a Postgres).
@@ -73,9 +68,6 @@ El servidor Express servirá los archivos construidos en `client/dist`.
 ### Frontend en Vercel
 
 1. Importa el repositorio.
-2. En **Build Command** usa `cd stitchwizard-client && npm install && npm run build`.
-3. En **Output Directory** define `stitchwizard-client/dist`.
-4. Configura la variable de entorno `VITE_API_BASE=https://tu-backend` si necesitas apuntar a una URL distinta (ajusta `stitchwizard-client/src/api.js` en despliegues avanzados).
 2. En **Build Command** usa `cd client && npm install && npm run build`.
 3. En **Output Directory** define `client/dist`.
 4. Configura la variable de entorno `VITE_API_BASE=https://tu-backend` si necesitas apuntar a una URL distinta (ajusta `client/src/api.js` en despliegues avanzados).
@@ -112,14 +104,14 @@ npm test
   services/
     costCalculator.js
     database.js
-  stitchwizard-client/
+  client/
     index.html
     package.json
     postcss.config.js
     tailwind.config.js
     vite.config.js
     src/
-      index.css
+      styles.css
       main.jsx
       App.jsx
       api.js
@@ -134,15 +126,6 @@ npm test
         Operations.jsx
         Styles.jsx
         Workers.jsx
-  client/
-    index.html
-    package.json
-    vite.config.js
-    src/
-      App.jsx
-      api.js
-      main.jsx
-      styles.css
 ```
 
 ## Fórmulas

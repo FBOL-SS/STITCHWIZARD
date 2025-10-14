@@ -1,77 +1,6 @@
 const API_BASE = import.meta.env.VITE_API_BASE || 'https://stitchwizard.onrender.com/api'
 
-const readBody = async (response) => {
-  const text = await response.text()
-  if (!text) {
-    return null
-  }
-  try {
-    return JSON.parse(text)
-  } catch (error) {
-    return null
-  }
-}
-
-const handleResponse = async (response) => {
-  const data = await readBody(response)
-  if (!response.ok) {
-    const message = data?.message || 'Request failed'
-    throw new Error(message)
-  }
-  return data
-}
-
-const jsonHeaders = {
-  'Content-Type': 'application/json'
-}
-
-export const getOperations = () =>
-  fetch(`${API_BASE}/operations`).then(handleResponse)
-
-export const createOperation = (payload) =>
-  fetch(`${API_BASE}/operations`, {
-    method: 'POST',
-    headers: jsonHeaders,
-    body: JSON.stringify(payload)
-  }).then(handleResponse)
-
-export const updateOperation = (id, payload) =>
-  fetch(`${API_BASE}/operations/${id}`, {
-    method: 'PUT',
-    headers: jsonHeaders,
-    body: JSON.stringify(payload)
-  }).then(handleResponse)
-
-export const deleteOperation = (id) =>
-  fetch(`${API_BASE}/operations/${id}`, {
-    method: 'DELETE'
-  }).then(handleResponse)
-
-export const getWorkers = () =>
-  fetch(`${API_BASE}/workers`).then(handleResponse)
-
-export const createWorker = (payload) =>
-  fetch(`${API_BASE}/workers`, {
-    method: 'POST',
-    headers: jsonHeaders,
-    body: JSON.stringify(payload)
-  }).then(handleResponse)
-
-export const updateWorker = (id, payload) =>
-  fetch(`${API_BASE}/workers/${id}`, {
-    method: 'PUT',
-    headers: jsonHeaders,
-    body: JSON.stringify(payload)
-  }).then(handleResponse)
-
-export const deleteWorker = (id) =>
-  fetch(`${API_BASE}/workers/${id}`, {
-    method: 'DELETE'
-  }).then(handleResponse)
-
-export const getStyles = () =>
-  fetch(`${API_BASE}/styles`).then(handleResponse)
-const AUTH_HEADER = { Authorization: 'Bearer demo-token' }
+const jsonHeaders = { 'Content-Type': 'application/json' }
 
 async function handleResponse(res) {
   if (!res.ok) {
@@ -82,131 +11,91 @@ async function handleResponse(res) {
   return res.json()
 }
 
-export function getOperations() {
-  return fetch(`${API_BASE}/operations`, { headers: AUTH_HEADER }).then(handleResponse)
-// ✅ apuntar a la ruta real de tu backend (con /api)
-const API_BASE = import.meta.env.VITE_API_BASE || 'https://stitchwizard.onrender.com/api';
-const AUTH_HEADER = { Authorization: 'Bearer demo-token' };
-
-async function handleResponse(res) {
-  if (!res.ok) {
-    const message = await res.text();
-    throw new Error(message || 'Request failed');
-  }
-  if (res.status === 204) return null;
-  return res.json();
+export async function getWorkers() {
+  const res = await fetch(`${API_BASE}/workers`)
+  return handleResponse(res)
 }
 
-export function getOperations() {
-  return fetch(`${API_BASE}/operations`, { headers: AUTH_HEADER }).then(handleResponse);
-}
-
-export function createOperation(payload) {
-  return fetch(`${API_BASE}/operations`, {
+export async function createWorker(data) {
+  const res = await fetch(`${API_BASE}/workers`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json', ...AUTH_HEADER },
-    body: JSON.stringify(payload)
-  }).then(handleResponse)
-  }).then(handleResponse);
+    headers: jsonHeaders,
+    body: JSON.stringify(data)
+  })
+  return handleResponse(res)
 }
 
-export function updateOperation(id, payload) {
-  return fetch(`${API_BASE}/operations/${id}`, {
+export async function updateWorker(id, data) {
+  const res = await fetch(`${API_BASE}/workers/${id}`, {
     method: 'PUT',
-    headers: { 'Content-Type': 'application/json', ...AUTH_HEADER },
-    body: JSON.stringify(payload)
-  }).then(handleResponse)
-  }).then(handleResponse);
+    headers: jsonHeaders,
+    body: JSON.stringify(data)
+  })
+  return handleResponse(res)
 }
 
-export function deleteOperation(id) {
-  return fetch(`${API_BASE}/operations/${id}`, {
-    method: 'DELETE',
-    headers: AUTH_HEADER
-  }).then(handleResponse)
+export async function deleteWorker(id) {
+  const res = await fetch(`${API_BASE}/workers/${id}`, { method: 'DELETE' })
+  return handleResponse(res)
 }
 
-export function getWorkers() {
-  return fetch(`${API_BASE}/workers`, { headers: AUTH_HEADER }).then(handleResponse)
-  }).then(handleResponse);
+export async function getOperations() {
+  const res = await fetch(`${API_BASE}/operations`)
+  return handleResponse(res)
 }
 
-export function getWorkers() {
-  return fetch(`${API_BASE}/workers`, { headers: AUTH_HEADER }).then(handleResponse);
-}
-
-export function createWorker(payload) {
-  return fetch(`${API_BASE}/workers`, {
+export async function createOperation(data) {
+  const res = await fetch(`${API_BASE}/operations`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json', ...AUTH_HEADER },
-    body: JSON.stringify(payload)
-  }).then(handleResponse)
-  }).then(handleResponse);
+    headers: jsonHeaders,
+    body: JSON.stringify(data)
+  })
+  return handleResponse(res)
 }
 
-export function updateWorker(id, payload) {
-  return fetch(`${API_BASE}/workers/${id}`, {
+export async function updateOperation(id, data) {
+  const res = await fetch(`${API_BASE}/operations/${id}`, {
     method: 'PUT',
-    headers: { 'Content-Type': 'application/json', ...AUTH_HEADER },
-    body: JSON.stringify(payload)
-  }).then(handleResponse)
-  }).then(handleResponse);
+    headers: jsonHeaders,
+    body: JSON.stringify(data)
+  })
+  return handleResponse(res)
 }
 
-export function deleteWorker(id) {
-  return fetch(`${API_BASE}/workers/${id}`, {
-    method: 'DELETE',
-    headers: AUTH_HEADER
-  }).then(handleResponse)
+export async function deleteOperation(id) {
+  const res = await fetch(`${API_BASE}/operations/${id}`, { method: 'DELETE' })
+  return handleResponse(res)
 }
 
-export function getStyles() {
-  return fetch(`${API_BASE}/styles`, { headers: AUTH_HEADER }).then(handleResponse)
+export async function getStyles() {
+  const res = await fetch(`${API_BASE}/styles`)
+  return handleResponse(res)
 }
 
-export function getStyle(id) {
-  return fetch(`${API_BASE}/styles/${id}`, { headers: AUTH_HEADER }).then(handleResponse)
-  }).then(handleResponse);
+export async function getStyle(id) {
+  const res = await fetch(`${API_BASE}/styles/${id}`)
+  return handleResponse(res)
 }
 
-export function getStyles() {
-  return fetch(`${API_BASE}/styles`, { headers: AUTH_HEADER }).then(handleResponse);
-}
-
-export function getStyle(id) {
-  return fetch(`${API_BASE}/styles/${id}`, { headers: AUTH_HEADER }).then(handleResponse);
-}
-
-export function createStyle(payload) {
-  return fetch(`${API_BASE}/styles`, {
+export async function createStyle(data) {
+  const res = await fetch(`${API_BASE}/styles`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json', ...AUTH_HEADER },
-    body: JSON.stringify(payload)
-  }).then(handleResponse)
-  }).then(handleResponse);
+    headers: jsonHeaders,
+    body: JSON.stringify(data)
+  })
+  return handleResponse(res)
 }
 
-export function calculateCost(payload) {
-  return fetch(`${API_BASE}/calculate`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', ...AUTH_HEADER },
-    body: JSON.stringify(payload)
-  }).then(handleResponse)
+export async function updateStyle(id, data) {
+  const res = await fetch(`${API_BASE}/styles/${id}`, {
+    method: 'PUT',
+    headers: jsonHeaders,
+    body: JSON.stringify(data)
+  })
+  return handleResponse(res)
 }
 
-export function exportCost({ styleId, format = 'csv', batchSize, overheadPct, marginPct }) {
-  const params = new URLSearchParams({ styleId, format })
-  if (batchSize) params.append('batchSize', batchSize)
-  if (overheadPct) params.append('overheadPct', overheadPct)
-  if (marginPct) params.append('marginPct', marginPct)
-  return fetch(`${API_BASE}/export?${params.toString()}`, { headers: AUTH_HEADER })
-  }).then(handleResponse);
-}
-
-export function exportCost({ styleId, format = 'csv', batchSize, overheadPct, marginPct }) {
-  const params = new URLSearchParams({ styleId, format });
-  if (batchSize) params.append('batchSize', batchSize);
-  if (overheadPct) params.append('overheadPct', overheadPct);
-  if (marginPct) params.append('marginPct', marginPct);
-  return fetch(`${API_BASE}/export?${params.toString()}`, { headers: AUTH_HEADER });
+export async function deleteStyle(id) {
+  const res = await fetch(`${API_BASE}/styles/${id}`, { method: 'DELETE' })
+  return handleResponse(res)
 }
