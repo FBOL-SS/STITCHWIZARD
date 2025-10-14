@@ -1,4 +1,5 @@
 node_modules/
+stitchwizard-client/node_modules/
 client/node_modules/
 db/*.sqlite
 .env
